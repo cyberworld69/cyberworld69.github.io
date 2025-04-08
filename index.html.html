@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+  <title>Birthday Celebration</title>
+  <!-- <link rel="stylesheet" href="styles.css"> -->
+  <style type="text/css">
+
+
+/* Button hover effect */
+.next-button:hover {
+    background: #ff3385; /* Darker pink */
+    box-shadow: 0 6px 15px rgba(255, 0, 127, 0.5);
+    transform: translateX(-50%) translateY(-3px);
+}
+
+/* Smooth glowing animation */
+@keyframes glow {
+    0% { box-shadow: 0 4px 10px rgba(255, 105, 180, 0.4); }
+    50% { box-shadow: 0 6px 15px rgba(255, 0, 127, 0.6); }
+    100% { box-shadow: 0 4px 10px rgba(255, 105, 180, 0.4); }
+}
+
+/* Prevent Scrolling */
+html, body {
+  overflow: hidden;
+  height: 100%;
+  width: `100%;
+}
+
+/* General styles for message boxes */
+.message-box {
+  max-width: 90%; /* Restrict the width to fit smaller screens */
+  padding: 15px;
+  font-size: 1rem; /* Adjust font size */
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Button styles */
+.message-box button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  background-color: #ffcc00;
+  color: #000;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.message-box button:hover {
+  background-color: #ffaa00;
+}
+
+/* Responsive styles for smaller screens */
+@media (max-width: 768px) {
+  .message-box {
+    font-size: 0.9rem; /* Slightly smaller font for phones */
+    padding: 10px;
+  }
+
+  .message-box button {
+    padding: 8px 15px; /* Smaller button size for phones */
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .message-box {
+    font-size: 0.8rem; /* Even smaller font for very small phones */
+    padding: 8px;
+  }
+
+  .message-box button {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+  }
+}
+
+/* General Responsive Settings */
+body {
+  font-size: 16px;
+}
+
+/* Countdown Timer Section */
+#countdown-timer {
+  padding: 10px;
+  font-size: 1rem;
+}
+
+/* Customizable Wishes Section */
+
+
+/* Balloons and Celebration Effects */
+.balloon, .burst {
+  width: 40px;
+  height: 60px;
+}
+
+@media (max-width: 768px) {
+  /* Adjust font sizes for smaller screens */
+  body {
+    font-size: 14px;
+  }
+
+  /* Resize countdown timer */
+  #countdown-timer h2 {
+    font-size: 1.2rem;
+  }
+
+  #timer {
+    font-size: 1rem;
+  }
+
+ 
+  /* Balloons and bursts */
+  .balloon, .burst {
+    width: 30px;
+    height: 45px;
+  }
+
+  /* Adjust the watermark */
+  #watermark {
+    font-size: 0.8rem;
+    padding: 8px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Further reduce font sizes and padding for very small screens */
+  body {
+    font-size: 12px;
+  }
+
+  #countdown-timer h2 {
+    font-size: 1rem;
+  }
+
+  #timer {
+    font-size: 0.8rem;
+  }
+
+  #wish-section textarea {
+    font-size: 0.8rem;
+    padding: 6px;
+  }
+
+  #wish-section button {
+    font-size: 0.8rem;
+    padding: 6px 10px;
+  }
+
+  .balloon, .burst {
+    width: 25px;
+    height: 40px;
+  }
+
+  #watermark {
+    font-size: 0.7rem;
+    padding: 5px 8px;
+  }
+}
+
+/* Balloons Section */
+#balloons {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.balloon {
+  position: absolute;
+  width: 50px;
+  height: 70px;
+  background-color: red;
+  border-radius: 50% 50% 50% 50% / 70% 70% 30% 30%;
+  animation: float 6s linear infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+.sparkle {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background: gold;
+  border-radius: 50%;
+  box-shadow: 0 0 10px gold;
+  animation: fadeOut 1s forwards;
+}
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: scale(2);
+  }
+}
+
+/* General Styling */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+  background: url('cake.jpg'), url('moon.jpg');
+  background-size: cover, cover;
+  background-blend-mode: overlay;
+  background-position: center;
+  background: rgba(255, 223, 186, 0.9);
+}
+
+#overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+/* Message Box Styling */
+#message-box, #wishes-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 223, 186, 0.9);
+  border: 3px solid #ff6f61;
+  border-radius: 15px;
+  padding: 20px;
+  text-align: centre;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+  height:15% ;
+  width: 50%;
+}
+
+#message-box p, #wishes-box p {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+#message-box button, #wishes-box button {
+  background: #ff6f61;
+  color: white;
+  border: none;
+  padding: 15px 15px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left:50px ;
+  margin-top: -70px;
+  margin-bottom: 20px;
+#link{
+  text-decoration: none;
+  font-size: 20px;
+}
+
+}
+ #msg-box{
+background: rgba(255, 223, 186, 0.9);
+  border: 3px solid #ff6f61;
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  margin-top: 200px;
+text-decoration: none;
+ }
+#message-box button:hover, #wishes-box button:hover {
+  background: #ff3b3b;
+}
+
+/* Falling Text Styling */
+#falling-texts {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.text {
+  position: absolute;
+  color: #ff6f61;
+  font-size: 1rem;
+  font-weight: bold;
+  animation: fall linear infinite;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(-100%);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+/* Countdown Timer Section */
+#countdown-timer {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 15px 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+#countdown-timer h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #ff6f61;
+}
+
+#timer {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+#timer span {
+  color: #333;
+}
+/* Celebration Section */
+#celebration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+#bursting-balloons {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.burst {
+  position: absolute;
+  width: 50px;
+  height: 70px;
+  background-color: red;
+  border-radius: 50% 50% 50% 50% / 70% 70% 30% 30%;
+  animation: burstEffect 0.5s ease-out forwards;
+}
+
+@keyframes burstEffect {
+  to {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+/* Watermark Section */
+#watermark {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  text-align: right;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px 15px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  font-family: Arial, sans-serif;
+  z-index: 1000;
+}
+
+#watermark p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+#watermark:hover {
+  color: rgba(255, 255, 255, 1);
+  background: rgba(0, 0, 0, 0.8);
+  transition: all 0.3s ease;
+}
+
+/* Add a custom hover effect */
+a:hover {
+  color: #ffcc00; /* Change the text color on hover */
+  text-decoration: none; /* Optional: Add underline on hover */
+}
+.next-button {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 25px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    background: #ff66a3;
+    border-radius: 25px;
+    text-decoration: none;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(255, 105, 180, 0.4);
+    transition: all 0.3s ease-in-out;
+    animation: glow 2s infinite;
+}
+.next-button:hover {
+    background: #ff3385;
+    box-shadow: 0 6px 15px rgba(255, 0, 127, 0.5);
+    transform: translateX(-50%) translateY(-3px);
+}
+
+@keyframes glow {
+    0% { box-shadow: 0 4px 10px rgba(255, 105, 180, 0.4); }
+    50% { box-shadow: 0 6px 15px rgba(255, 0, 127, 0.6); }
+    100% { box-shadow: 0 4px 10px rgba(255, 105, 180, 0.4); }
+}
+
+
+  </style>
+</head>
+<body>
+  
+
+   
+
+  <!-- Watermark Section -->
+<div id="watermark">
+  <p>Made by Nikhil with ❤️</p>
+  <p>Hope you liked it!</p>
+</div>
+
+  <!-- Balloons Burst and Fireworks Section -->
+<div id="celebration" style="display: none;">
+  <div id="bursting-balloons"></div>
+  <canvas id="celebration-fireworks"></canvas>
+</div>
+
+   <!-- Countdown Timer Section -->
+<div id="countdown-timer">
+  <h2>Time Left Until the Big Day:</h2>
+  <div id="timer">
+    <span id="days">00</span> Days 
+    <span id="hours">00</span> Hours 
+    <span id="minutes">00</span> Minutes 
+    <span id="seconds">00</span> Seconds
+  </div>
+</div>
+
+   <div id="balloons"></div>
+  <div id="overlay">
+    <div id="message-box">
+     <font color=" rgb(36, 237, 224)" face="Sans-serif">  <p align="centre">    🎉 Happy Birthday! MOON 🎉</p></font>
+      <button id="thank-you-btn-1">Thank You</button>
+    </div>
+    <div id="wishes-box" style="display: none;">
+      <p>🎂 Wishing you all the happiness and joy in the world! 🎂</p>
+      <button id="thank-you-btn-2">Thank You</button>
+    </div>
+  
+
+  <div id="falling-texts"></div>
+  <canvas id="fireworks"></canvas>
+  <a href="birthdaypage2.html" class="next-button">Wish Me Again →</a>
+  <!-- <script src="script.js"></script> -->
+  <script type="text/javascript">
+// Fireworks Canvas
+const canvas = document.getElementById('fireworks');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+// Fireworks Logic
+function createFirework(x, y, color) {
+  const particles = [];
+  for (let i = 0; i < 50; i++) {
+    particles.push({
+      x,
+      y,
+      angle: Math.random() * Math.PI * 2,
+      speed: Math.random() * 4 + 1,
+      color,
+      lifetime: 50
+    });
+  }
+  return particles;
+}
+
+let fireworks = [];
+for (let i = 0; i < 20; i++) {
+  fireworks.push(createFirework(Math.random() * canvas.width, Math.random() * canvas.height, 'gold'));
+}
+
+function animateFireworks() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  fireworks.forEach((firework, i) => {
+    firework.forEach((particle) => {
+      particle.x += Math.cos(particle.angle) * particle.speed;
+      particle.y += Math.sin(particle.angle) * particle.speed;
+      particle.lifetime--;
+      ctx.beginPath();
+      ctx.arc(particle.x, particle.y, 2, 0, Math.PI * 2);
+      ctx.fillStyle = particle.color;
+      ctx.fill();
+    });
+    fireworks[i] = firework.filter((particle) => particle.lifetime > 0);
+  });
+  fireworks = fireworks.filter((firework) => firework.length > 0);
+  requestAnimationFrame(animateFireworks);
+}
+animateFireworks();
+
+// Falling Texts Logic
+const fallingTexts = document.getElementById('falling-texts');
+function createFallingText() {
+  const text = document.createElement('div');
+  text.classList.add('text');
+  text.style.left = Math.random() * 150 + 'vw';
+  text.style.animationDuration = Math.random() * 3 + 3 + 's';
+  text.textContent = '🎉 Happy Birthday MOON 🎉';
+  fallingTexts.appendChild(text);
+  setTimeout(() => text.remove(), 5000);
+}
+setInterval(createFallingText, 200);
+
+// Message Boxes Logic
+const messageBox = document.getElementById('message-box');
+const wishesBox = document.getElementById('wishes-box');
+const thankYouBtn1 = document.getElementById('thank-you-btn-1');
+const thankYouBtn2 = document.getElementById('thank-you-btn-2');
+
+thankYouBtn1.addEventListener('click', () => {
+  messageBox.style.display = 'none';
+  wishesBox.style.display = 'block';
+});
+
+thankYouBtn2.addEventListener('click', () => {
+  wishesBox.style.display = 'none';
+});
+
+document.addEventListener('mousemove', (e) => {
+  const sparkle = document.createElement('div');
+  sparkle.classList.add('sparkle');
+  sparkle.style.left = `${e.pageX}px`;
+  sparkle.style.top = `${e.pageY}px`;
+  document.body.appendChild(sparkle);
+  setTimeout(() => sparkle.remove(), 1000);
+});
+const balloonsContainer = document.getElementById('balloons');
+setInterval(() => {
+  const balloon = document.createElement('div');
+  balloon.classList.add('balloon');
+  balloon.style.left = Math.random() * 100 + 'vw';
+  balloon.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+  balloonsContainer.appendChild(balloon);
+  setTimeout(() => balloon.remove(), 6000);
+}, 500);
+
+// Celebration Effects
+function startCelebration() {
+  document.getElementById('celebration').style.display = 'block';
+
+  // Burst Balloons
+  const burstingBalloons = document.getElementById('bursting-balloons');
+  for (let i = 0; i < 20; i++) {
+    const burstBalloon = document.createElement('div');
+    burstBalloon.classList.add('burst');
+    burstBalloon.style.left = Math.random() * 100 + 'vw';
+    burstBalloon.style.top = Math.random() * 100 + 'vh';
+    burstBalloon.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+    burstingBalloons.appendChild(burstBalloon);
+    setTimeout(() => burstBalloon.remove(), 500); // Remove burst balloons after animation
+  }
+
+  // Fireworks
+  const canvas = document.getElementById('celebration-fireworks');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  function createFirework(x, y) {
+    const particles = [];
+    for (let i = 0; i < 50; i++) {
+      particles.push({
+        x: x,
+        y: y,
+        dx: Math.random() * 4 - 2,
+        dy: Math.random() * 4 - 2,
+        color: `hsl(${Math.random() * 360}, 100%, 50%)`,
+        size: Math.random() * 3 + 1,
+      });
+    }
+
+    let count = 0;
+    function drawFirework() {
+      if (count > 100) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach((particle) => {
+        ctx.fillStyle = particle.color;
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+        ctx.fill();
+        particle.x += particle.dx;
+        particle.y += particle.dy;
+      });
+      count++;
+      requestAnimationFrame(drawFirework);
+    }
+    drawFirework();
+  }
+
+  setInterval(() => {
+    createFirework(Math.random() * canvas.width, Math.random() * canvas.height);
+  }, 500);
+}
+
+// Countdown Timer
+const countdownDate = new Date('2025-01-15T12:25:30').getTime(); // Set your birthday date here
+const daysSpan = document.getElementById('days');
+const hoursSpan = document.getElementById('hours');
+const minutesSpan = document.getElementById('minutes');
+const secondsSpan = document.getElementById('seconds');
+
+function updateCountdown() {
+  const now = new Date().getTime();
+  const timeLeft = countdownDate - now;
+
+  if (timeLeft >= 0) {
+    const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+    daysSpan.textContent = days.toString().padStart(2, '0');
+    hoursSpan.textContent = hours.toString().padStart(2, '0');
+    minutesSpan.textContent = minutes.toString().padStart(2, '0');
+    secondsSpan.textContent = seconds.toString().padStart(2, '0');
+  } else {
+    document.getElementById('countdown-timer').innerHTML = `
+      <h2>🎉 It's Your Birthday! 🎉</h2>
+      <p>Let the celebrations begin!</p>`;
+    startCelebration(); // Start the celebration when timer reaches zero
+  }
+}
+
+setInterval(updateCountdown, 1000); // Update every second
+
+  </script>
+</body>
+</html>

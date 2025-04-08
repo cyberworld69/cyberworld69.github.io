@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Birthday Wish</title>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <style type="text/css">
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+/* Prevent Scrolling */
+html, body {
+  overflow: hidden;
+  height: 100%;
+  width: `100%;
+}
+
+.next-button {
+    display: inline-block;
+    padding: 12px 25px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    background: #ff66a3; /* Soft pink */
+    border-radius: 25px;
+    text-decoration: none;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(255, 105, 180, 0.4);
+    transition: all 0.3s ease-in-out;
+    position: fixed;
+    bottom: 20px; /* Distance from bottom */
+    left: 50%;
+    transform: translateX(-50%); /* Centers the button horizontally */
+    animation: glow 2s infinite;
+}
+
+/* Button hover effect */
+.next-button:hover {
+    background: #ff3385; /* Darker pink */
+    box-shadow: 0 6px 15px rgba(255, 0, 127, 0.5);
+    transform: translateX(-50%) translateY(-3px);
+}
+
+/* Smooth glowing animation */
+@keyframes glow {
+    0% { box-shadow: 0 4px 10px rgba(255, 105, 180, 0.4); }
+    50% { box-shadow: 0 6px 15px rgba(255, 0, 127, 0.6); }
+    100% { box-shadow: 0 4px 10px rgba(255, 105, 180, 0.4); }
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    font-size: 40px;
+    color: white;
+    font-family: 'Great Vibes', cursive;
+    text-align: center;
+    display: flex;
+    gap: 10px;
+}
+
+/* Text Animation */
+.word {
+    opacity: 0;
+    transform: translateY(100px);
+    animation: fadeInUp 1s forwards;
+}
+
+.word:nth-child(1) { animation-delay: 0.5s; }
+.word:nth-child(2) { animation-delay: 1s; }
+.word:nth-child(3) { animation-delay: 1.5s; }
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Background animation with shining rose petals */
+@keyframes fall {
+    0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+}
+
+.petal {
+    position: absolute;
+    font-size: 25px;
+    animation: fall linear infinite;
+    color: red;
+    text-shadow: 0px 0px 5px rgba(255, 0, 0, 0.8);
+}
+
+/* Generate multiple petals dynamically */
+/* Watermark Section */
+#watermark {
+/*    border-width: 15px;*/
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  text-align: right;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px 15px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  font-family: Arial, sans-serif;
+  z-index: 1000;
+}
+
+#watermark p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+#watermark:hover {
+  color: rgba(255, 255, 255, 1);
+  background: rgba(0, 0, 0, 0.8);
+  transition: all 0.3s ease;
+}
+
+    </style>
+</head>
+<body>
+      <!-- Watermark Section -->
+<div id="watermark">
+  <p>Made by Nikhil with ❤️</p>
+  <p>Hope you liked it!</p>
+</div>
+    <a href="birthdaypage3.html" class="next-button">Cut the Cake→</a>
+
+    <div class="container">
+        <span class="word">Happy</span>
+        <span class="word">Birthday,</span>
+        <span class="word">MadamJii</span>
+    </div>
+
+    <!-- <script src="script.js"></script> -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+    function createPetal() {
+        const petal = document.createElement("div");
+        petal.classList.add("petal");
+        petal.innerHTML = "🌹"; // Rose emoji
+        document.body.appendChild(petal);
+
+        let size = Math.random() * 20 + 10;
+        petal.style.fontSize = `${size}px`;
+        petal.style.left = Math.random() * 100+ "vw";
+        petal.style.animationDuration = Math.random() * 5 + 3 + "s";
+
+        setTimeout(() => {
+            petal.remove();
+        }, 8000);
+    }
+
+    setInterval(createPetal, 300);
+});
+
+
+    </script>
+
+</body>
+</html>

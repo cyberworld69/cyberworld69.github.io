@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,  maximum-scale=1.0 user-scalable=no">
+    <title>Happy Birthday</title>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <style type="text/css">
+
+/* Background similar to the image */
+
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+body {
+    background: radial-gradient(circle, #ffc0cb, #ff69b4);
+    background-image: url('https://www.transparenttextures.com/patterns/stardust.png'); /* Adding a subtle sparkle effect */
+    background-size: cover;
+    background-position: center;
+}
+
+/* Center Bottom Next Page Button */
+.next-button {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 25px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    background: #ff66a3;
+    border-radius: 25px;
+    text-decoration: none;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(255, 105, 180, 0.4);
+    transition: all 0.3s ease-in-out;
+    animation: glow 2s infinite;
+}
+
+.next-button:hover {
+   background: darkred;
+    transform: scale(1.1);
+}
+
+@keyframes glow {
+    0% { box-shadow: 0 4px 10px rgba(255, 105, 180, 0.4); }
+    50% { box-shadow: 0 6px 15px rgba(255, 0, 127, 0.6); }
+    100% { box-shadow: 0 4px 10px rgba(255, 105, 180, 0.4); }
+}
+
+/* Prevent Scrolling */
+html, body {
+  overflow: hidden;
+  height: 100%;
+  width: `100%;
+}
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: 'Pacifico', cursive;
+    background: linear-gradient(to bottom right, #ff9a9e, #fad0c4);
+}
+
+/* Falling stars */
+canvas#stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+/* Floating Balloons */
+.balloon-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Birthday Card */
+.card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+/* Disappear Animation */
+.card.disappear {
+    transform: scale(0) translate(-50%, -50%);
+    opacity: 0;
+}
+
+/* Ribbon */
+.ribbon {
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    background: red;
+    color: white;
+    padding: 5px 10px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 3px;
+}
+
+/* Heart Button */
+.heart-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 15px;
+    font-size: 24px;
+    background: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    transition: transform 0.3s, background 0.3s;
+}
+
+.heart-button:hover {
+    background: darkred;
+    transform: scale(1.1);
+}
+
+/* Final Message */
+#finalMessage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 60px;
+    color: white;
+    text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.8);
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+/* Text color for "Enjoy your day" */
+#finalMessage {
+    color: #ff1493; /* Deep pink color */
+    text-shadow: 2px 2px 10px rgba(255, 20, 147, 0.8);
+}
+
+
+/* Balloons */
+.balloon {
+    position: absolute;
+    width: 40px;
+    height: 50px;
+    background: rgba(255, 0, 0, 0.8);
+    border-radius: 50%;
+    animation: float 5s infinite linear;
+}
+
+@keyframes float {
+    0% { transform: translateY(100vh); opacity: 0.7; }
+    100% { transform: translateY(-10vh); opacity: 1; }
+}
+#watermark {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  text-align: right;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px 15px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  font-family: Arial, sans-serif;
+  z-index: 1000;
+}
+
+#watermark p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+#watermark:hover {
+  color: rgba(255, 255, 255, 1);
+  background: rgba(0, 0, 0, 0.8);
+  transition: all 0.3s ease;
+}
+
+
+    </style>
+</head>
+<body>
+
+    <div id="watermark">
+  <p>Made by Nikhil with ❤️</p>
+  <p>Hope you liked it!</p>
+</div>
+    <a href="birthdaywish.html" class="next-button">Wish Me AGAIN →</a>
+
+    <div id="background">
+        <canvas id="stars"></canvas>
+        <div class="balloon-container"></div>
+    </div>
+
+    <div class="card" id="birthdayCard">
+        <span class="ribbon">Special Day</span>
+        <h1>🎉 Happy Birthday, MOON 🎉</h1>
+        <p>Today is all about you – the light of my life.<br> I've prepared a little journey filled with surprises just for you.<br>!Click on the Heart!<br></p>
+        <button class="heart-button" onclick="disappearCard()">❤<br></button>
+    </div>
+
+    <h1 id="finalMessage">Enjoy your day 🎉</h1>
+
+    <!-- <script src="script.js"></script> -->
+    <script type="text/javascript"><!-- 
+// Function to make the card disappear
+function disappearCard() {
+    let card = document.getElementById("birthdayCard");
+    let message = document.getElementById("finalMessage");
+
+    card.classList.add("disappear");
+
+    // Show "Enjoy your day" after the card disappears
+    setTimeout(() => {
+        message.style.opacity = "1";
+    }, 600);
+}
+
+// Falling stars animation
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let stars = [];
+
+for (let i = 0; i < 100; i++) {
+    stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 2,
+        velocityY: Math.random() * 0.5 + 0.2
+    });
+}
+
+
+function drawStars() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "white";
+    ctx.shadowBlur = 10;
+    ctx.shadowColor = "white";
+    stars.forEach(star => {
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fill();
+        star.y += star.velocityY;
+        if (star.y > canvas.height) star.y = 0;
+    });
+    requestAnimationFrame(drawStars);
+}
+drawStars();
+
+// Floating Balloons
+const balloonContainer = document.querySelector('.balloon-container');
+
+function createBalloon() {
+    let balloon = document.createElement("div");
+    balloon.classList.add("balloon");
+    balloon.style.left = Math.random() * 100 + "vw";
+    balloon.style.background = `hsl(${Math.random() * 360}, 100%, 70%)`;
+    balloon.style.animationDuration = Math.random() * 3 + 3 + "s";
+    
+    balloonContainer.appendChild(balloon);
+
+    setTimeout(() => {
+        balloon.remove();
+    }, 6000);
+}
+
+setInterval(createBalloon, 500);
+
+
+
+    </script> 
+    
+</body>
+</html>
